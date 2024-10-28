@@ -1,8 +1,4 @@
-import { FaCalendarAlt } from "react-icons/fa"
-import { BiSolidReport } from "react-icons/bi"
-import { GrDomain } from "react-icons/gr";
-import {BsPeopleFill} from "react-icons/bs"
-import { Truck, HandCoins, Dock, ClipboardCheck, Receipt, Handshake, BookOpenCheck } from 'lucide-react';
+import { Truck, HandCoins, Dock, ClipboardCheck, Receipt, Handshake, BookOpenCheck, AppWindow, User, FileChartColumnIncreasing } from 'lucide-react';
 // import Scheduler from "../Scheduler/Scheduler"
 import { useTheme } from '@mui/material/styles';
 // import { SERVER_URL } from '../../constants.js';
@@ -42,7 +38,7 @@ import { blue } from '@mui/material/colors';
 // import { useValue } from '../../context/ContextProvider'
 // import ReportsButtonsList from "./ReportsButtonsList.js"
   
-  const drawerWidth = 250;
+  const drawerWidth = 280;
   
   const openedMixin = (theme) => ({
     width: drawerWidth,
@@ -147,13 +143,13 @@ import { blue } from '@mui/material/colors';
         componentsToShow.push(
           {
             title: 'Главная страница',
-            icon: <GrDomain />,
+            icon: <AppWindow/>,
             link: 'main',
             // component: <Home {...{ setSelectedLink, link: 'main' }} />,
           },
           {
             title: 'Сотрудники',
-            icon: <BsPeopleFill />,
+            icon: <User/>,
             link: 'service_employees',
             // component: <EmployeeTable {...{ setSelectedLink, link: 'service_employees' }} />,
           },
@@ -165,60 +161,54 @@ import { blue } from '@mui/material/colors';
           },
           {
             title: 'Текущие расходы',
-            icon: <HandCoins />,
+            icon: <HandCoins/>,
             link: 'expenses',
             // component: <ComplexFacilityTable {...{ setSelectedLink, link: 'complex_facilities' }}/>,
           },
           {
             title: 'Заявки на обеспечение',
-            icon: <Dock />,
+            icon: <Dock/>,
             link: 'supply_needs',
             // component: <TrainingTable {...{ setSelectedLink, link: 'trainings' }}/>,
           },
           {
             title: 'Доставленные товары',
-            icon: <FaCalendarAlt />,
+            icon: <ClipboardCheck/>,
             link: 'recieved_goods',
-            component:
-            <div>
-            {/* <div>
-            <SetTheme/>
-            </div> */}
-            <div> 
-            {/* <Scheduler {...{ setSelectedLink, link: 'shedule' }}/> */}
-            </div>
-            </div>
+            // component:
+            // <div>
+            // <div>
+            // <SetTheme/>
+            // </div>
+            // <div> 
+            // <Scheduler {...{ setSelectedLink, link: 'shedule' }}/>
+            // </div>
+            // </div>
           },
-            {
-              title: 'Счета поставщиков',
-              icon: <ClipboardCheck />,
-              link: 'bills',
-            //   component: <SportComplexMembershipTable {...{ setSelectedLink, link: 'memberships' }}/>,
-            },
-            {
-              title: 'Выручка',
-              icon: <Receipt />,
-              link: 'financies',
-            //   component: <FinanciesMain {...{ setSelectedLink, link: 'financies'}}/>,
-            },
-            {
-              title: 'Планируемые поставки',
-              icon: <Handshake />,
-              link: 'future_supplies',
-            //   component: <ReceptionButtonsList {...{ setSelectedLink, link: 'reception/*' }}/>,
-            },
-            {
-              title: 'Кредиты по оплате',
-              icon: <BookOpenCheck />,
-              link: 'vendors_credits',
-            //   component: <ReportsButtonsList {...{ setSelectedLink, link: 'reports/*' }}/>,
-            },
-            {
-              title: 'Отчеты',
-              icon: <BiSolidReport />,
-              link: 'reports/*',
-            //   component: <ReportsButtonsList {...{ setSelectedLink, link: 'reports/*' }}/>,
-            },
+          {
+            title: 'Счета поставщиков',
+            icon: <Receipt/>,
+            link: 'bills',
+          //   component: <SportComplexMembershipTable {...{ setSelectedLink, link: 'memberships' }}/>,
+          },
+          {
+            title: 'Планируемые поставки',
+            icon: <Handshake/>,
+            link: 'future_supplies',
+          //   component: <ReceptionButtonsList {...{ setSelectedLink, link: 'reception/*' }}/>,
+          },
+          {
+            title: 'Кредиты по оплате',
+            icon: <BookOpenCheck/>,
+            link: 'vendors_credits',
+          //   component: <ReportsButtonsList {...{ setSelectedLink, link: 'reports/*' }}/>,
+          },
+          {
+            title: 'Отчеты',
+            icon: <FileChartColumnIncreasing/>,
+            link: 'reports/*',
+          //   component: <ReportsButtonsList {...{ setSelectedLink, link: 'reports/*' }}/>,
+          },
         );
     //   }
 

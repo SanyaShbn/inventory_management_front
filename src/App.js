@@ -5,6 +5,7 @@ import {
   Route
 } from 'react-router-dom';
 import SideList from './components/MainPage/SideList';
+import Dashboard from './components/MainPage/Dashboard';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={
           <div key="NavBarAndLogin" className="welcome_page">
             <SideList></SideList>
+            <Dashboard></Dashboard>
          </div>
           } />
      </Routes>

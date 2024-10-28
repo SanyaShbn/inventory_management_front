@@ -11,9 +11,9 @@ import { Brightness4, Brightness7, Menu } from '@mui/icons-material';
 import { useEffect, useMemo, useState } from 'react';
 import SideList from './SideList';
 import logo from './logo.png'
-import '../CSS/main.css';
+import '../../CSS/main.css';
 
-const drawerWidth = 250;
+const drawerWidth = 280;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
