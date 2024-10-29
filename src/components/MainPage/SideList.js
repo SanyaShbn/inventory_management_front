@@ -24,7 +24,7 @@ import MuiDrawer from '@mui/material/Drawer';
 import { useMemo, useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Home from './Home';
-// import EmployeeTable from '../Employees/EmployeeTable'
+import EmployeeTable from '../Employees/EmployeeTable'
 // import ClientTable from "../Client/ClientTable"
 // import ComplexFacilityTable from "../ComplexFacility/ComplexFacilitytable"
 // import TrainingTable from "../Training/TrainingTable"
@@ -151,7 +151,7 @@ import { blue } from '@mui/material/colors';
             title: 'Сотрудники',
             icon: <User/>,
             link: 'service_employees',
-            // component: <EmployeeTable {...{ setSelectedLink, link: 'service_employees' }} />,
+            component: <EmployeeTable {...{ setSelectedLink, link: 'service_employees' }} />,
           },
           {
             title: 'Поставщики',

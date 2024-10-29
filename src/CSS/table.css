@@ -1,0 +1,61 @@
+
+.container{
+    margin-top: 10px;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .dialog{
+    text-shadow: none;
+  }
+  
+  .my-phone-input .flag-dropdown {
+    display: none;
+  }
+
+  .info_pages_body {
+    text-align: center;
+    word-spacing: 10px;
+    background-size: cover;
+  }
+  
+  .shine-button:before {
+    content: "";
+    background: linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .5));
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: -8px;
+    left: -75px;
+    transform: skewX(-45deg);
+  }
+  
+  .shine-button:hover {
+    background: rgb(66,170,255);
+    color: #fff;
+  }
+  
+  .shine-button:hover:before {
+    left: 250px;
+    transition: .5s ease-in-out;
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .EmployeeTable {
+      flex-direction: row;
+    }
+  }
+  
+  @media only screen and (max-width: 500px) {
+    .EmployeeTable {
+      flex-direction: column;
+    }
+  
+    .AddEmployee {
+      width: 100%;
+    }
+  }
+  
+  
