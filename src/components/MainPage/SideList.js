@@ -23,7 +23,7 @@ Logout,
 import MuiDrawer from '@mui/material/Drawer';
 import { useMemo, useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-// import Home from './Home';
+import Home from './Home';
 // import EmployeeTable from '../Employees/EmployeeTable'
 // import ClientTable from "../Client/ClientTable"
 // import ComplexFacilityTable from "../ComplexFacility/ComplexFacilitytable"
@@ -145,7 +145,7 @@ import { blue } from '@mui/material/colors';
             title: 'Главная страница',
             icon: <AppWindow/>,
             link: 'main',
-            // component: <Home {...{ setSelectedLink, link: 'main' }} />,
+            component: <Home {...{ setSelectedLink, link: 'main' }} />,
           },
           {
             title: 'Сотрудники',

@@ -4,7 +4,6 @@ import {
   Routes,
   Route
 } from 'react-router-dom';
-import SideList from './components/MainPage/SideList';
 import Dashboard from './components/MainPage/Dashboard';
 
 function App() {
@@ -12,12 +11,7 @@ function App() {
     <div>
     <BrowserRouter>
      <Routes>
-        <Route path="/" element={
-          <div key="NavBarAndLogin" className="welcome_page">
-            <SideList></SideList>
-            <Dashboard></Dashboard>
-         </div>
-          } />
+          <Route path="dashboard/*" element={<Dashboard/>} />
      </Routes>
    </BrowserRouter>
   </div>
