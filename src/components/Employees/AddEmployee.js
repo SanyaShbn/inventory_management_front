@@ -206,7 +206,7 @@ function AddEmployee(props){
               <MenuItem value={"Менеджер по закупкам"}>Менеджер по закупкам</MenuItem>
               <MenuItem value={"Финансовый менеджер"}>Финансовый менеджер</MenuItem>
             </Select>
-            </FormControl>
+          </FormControl>
         </Stack>
       </DialogContent>
       <DialogActions>

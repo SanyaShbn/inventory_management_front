@@ -25,16 +25,12 @@ import { useMemo, useState, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Home from './Home';
 import EmployeeTable from '../Employees/EmployeeTable'
-// import ClientTable from "../Client/ClientTable"
-// import ComplexFacilityTable from "../ComplexFacility/ComplexFacilitytable"
-// import TrainingTable from "../Training/TrainingTable"
-// import SportComplexMembershipTable from "../SportComplexMembership/SportComplexMembershipTable"
 // import ReceptionButtonsList from "./ReceptionButtonsList"
 // import SetTheme from "../Scheduler/SetTheme"
 // import UpdateProfile from "../User/UpdateProfile.js"
 import { blue } from '@mui/material/colors';
+import VendorTable from '../Vendor/VendorTable';
 // import { jwtDecode } from 'jwt-decode';
-// import FinanciesMain from "../Financies/FinanciesMain.js"
 // import { useValue } from '../../context/ContextProvider'
 // import ReportsButtonsList from "./ReportsButtonsList.js"
   
@@ -157,7 +153,7 @@ import { blue } from '@mui/material/colors';
             title: 'Поставщики',
             icon: <Truck/>,
             link: 'vendors',
-            // component: <ClientTable {...{ setSelectedLink, link: 'clients' }}/>,
+            component: <VendorTable {...{ setSelectedLink, link: 'vendors' }}/>,
           },
           {
             title: 'Текущие расходы',
