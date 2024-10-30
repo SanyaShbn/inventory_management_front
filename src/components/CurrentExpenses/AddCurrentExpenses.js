@@ -55,15 +55,15 @@ function AddCurrentExpenses(props){
         <TextField label="Описание" name="description" autoFocus
             variant="standard" value={сurrentExpenses.description} required
             onChange={handleCurrentExpensesChange}/>
-        <TextField fullWidth label="Сумма расходов (бел. руб.)" name="amount" autoFocus
+        <TextField label="Сумма расходов (бел. руб.)" name="amount" autoFocus
             variant="standard" value={сurrentExpenses.amount} required
-            onChange={handleCurrentExpensesChange} inputProps={{ style: { minWidth: '300px' } }}/>
-        <TextField fullWidth label="Дата списания" name="date" autoFocus
+            onChange={handleCurrentExpensesChange}/>
+        <TextField label="Дата списания" name="date" autoFocus
             variant="standard" value={сurrentExpenses.date} required
-            onChange={handleCurrentExpensesChange} inputProps={{ style: { minWidth: '300px' } }}/>
-        <TextField fullWidth label="Менеджер, ответственный за транзакцию" name="user" autoFocus
+            onChange={handleCurrentExpensesChange}/>
+        <TextField label="Менеджер, ответственный за транзакцию" name="user" autoFocus
             variant="standard" value={сurrentExpenses.user} required
-            onChange={handleCurrentExpensesChange} inputProps={{ style: { minWidth: '300px' } }}/>
+            onChange={handleCurrentExpensesChange} inputProps={{ style: { minWidth: '400px' } }}/>
         </Stack>
       </DialogContent>
       <DialogActions>

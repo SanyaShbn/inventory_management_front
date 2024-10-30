@@ -30,6 +30,8 @@ import EmployeeTable from '../Employees/EmployeeTable'
 // import UpdateProfile from "../User/UpdateProfile.js"
 import { blue } from '@mui/material/colors';
 import VendorTable from '../Vendor/VendorTable';
+import CurrentExpensesTable from '../CurrentExpenses/CurrentExpensesTable';
+import ProcurementRequestTable from '../ProcurementRequest/ProcurementRequestTable';
 // import { jwtDecode } from 'jwt-decode';
 // import { useValue } from '../../context/ContextProvider'
 // import ReportsButtonsList from "./ReportsButtonsList.js"
@@ -159,13 +161,13 @@ import VendorTable from '../Vendor/VendorTable';
             title: 'Текущие расходы',
             icon: <HandCoins/>,
             link: 'expenses',
-            // component: <ComplexFacilityTable {...{ setSelectedLink, link: 'complex_facilities' }}/>,
+            component: <CurrentExpensesTable {...{ setSelectedLink, link: 'expenses' }}/>,
           },
           {
             title: 'Заявки на обеспечение',
             icon: <Dock/>,
-            link: 'supply_needs',
-            // component: <TrainingTable {...{ setSelectedLink, link: 'trainings' }}/>,
+            link: 'procurementRequests',
+            component: <ProcurementRequestTable {...{ setSelectedLink, link: 'procurementRequests' }}/>,
           },
           {
             title: 'Доставленные товары',

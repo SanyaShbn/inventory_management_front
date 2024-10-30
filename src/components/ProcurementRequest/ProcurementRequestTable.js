@@ -12,8 +12,8 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useValue } from '../../context/ContextProvider';
 import axios from 'axios';
-import EditCurrentExpenses from "./EditCurrentExpenses.js";
-import AddCurrentExpenses from "./AddCurrentExpenses.js";
+import AddProcurementRequest from "./AddProcurementRequest.js";
+import EditProcurementRequest from "./EditProcurementRequest.js";
 
 function CustomToolbar() {
   return (
@@ -23,7 +23,7 @@ function CustomToolbar() {
   );
 }
 
-const CurrentExpensesTable = ({ setSelectedLink, link }) => {
+const ProcurementRequestTable = ({ setSelectedLink, link }) => {
 
   useEffect(() => {
     setSelectedLink(link);
@@ -33,7 +33,7 @@ const CurrentExpensesTable = ({ setSelectedLink, link }) => {
     dispatch,
   } = useValue();
 
-    const [currentExpenses, setCurrentExpenses] = useState([]);
+    const [procurementRequests, setProcurementRequests] = useState([]);
     const [delOpen, setDelOpen] = useState(false);
     const [addOpen, setAddOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
@@ -45,20 +45,20 @@ const CurrentExpensesTable = ({ setSelectedLink, link }) => {
     };
   
     // useEffect(() => {
-    //   fetchCurrentExpenses();
+    //   fetchProcurementRequests();
     // }, []);
   
-    // const fetchCurrentExpenses = () => {
+    // const fetchProcurementRequests = () => {
     //   const token = sessionStorage.getItem("jwt");
-    //   fetch(SERVER_URL + '/api/currentExpenses', {
+    //   fetch(SERVER_URL + '/api/procurementRequests', {
     //     headers: { 'Authorization' : token }
     //   })
     //   .then(response => response.json())
     //   .then(data => {
-    //     const sortedCurrentExpenses = data._embedded.currentExpenses.sort((a, b) => a._links.self.href.slice(a._links.self.href.lastIndexOf('/') + 1) 
+    //     const sortedProcurementRequests = data._embedded.procurementRequests.sort((a, b) => a._links.self.href.slice(a._links.self.href.lastIndexOf('/') + 1) 
     //     - b._links.self.href.slice(b._links.self.href.lastIndexOf('/') + 1) );
-    //     setCurrentExpenses(sortedCurrentExpenses)
-    //     sortedCurrentExpenses.length !== 0 ? setLoading(true) : setLoading(false)
+    //     setProcurementRequests(sortedProcurementRequests)
+    //     sortedProcurementRequests.length !== 0 ? setLoading(true) : setLoading(false)
     // })
     //   .catch(err => console.error(err));    
     // }
@@ -76,7 +76,7 @@ const CurrentExpensesTable = ({ setSelectedLink, link }) => {
     //   })
     //   .then(response => {
     //     if (response.ok) {
-    //       fetchCurrentExpenses();
+    //       fetchProcurementRequests();
     //       setDelOpen(true);
     //     }
     //     else {
@@ -88,20 +88,20 @@ const CurrentExpensesTable = ({ setSelectedLink, link }) => {
     //   setDialogOpen(false);
     // };
      
-    // const addCurrentExpenses = (currentExpenses) => {
+    // const addProcurementRequest = (procurementRequests) => {
 
     //   const token = sessionStorage.getItem("jwt");
 
-    //   fetch(SERVER_URL + '/api/currentExpenses',
+    //   fetch(SERVER_URL + '/api/procurementRequests',
     //     { method: 'POST', headers: {
     //       'Content-Type':'application/json',
     //       'Authorization' : token
     //     },
-    //     body: JSON.stringify(currentExpenses)
+    //     body: JSON.stringify(procurementRequests)
     //   })
     //   .then(response => {
     //     if (response.ok) {
-    //       fetchCurrentExpenses();
+    //       fetchProcurementRequests();
     //       setAddOpen(true)
     //     }
     //     else {
@@ -110,7 +110,7 @@ const CurrentExpensesTable = ({ setSelectedLink, link }) => {
     //         payload: {
     //           open: true,
     //           severity: 'error',
-    //           message: 'Ошибка! Новую запись о текущих расходах не удалось создать',
+    //           message: 'Ошибка! Новую запись о заявках на обеспечение не удалось создать',
     //         },});
     //     }
     //   })
@@ -118,7 +118,7 @@ const CurrentExpensesTable = ({ setSelectedLink, link }) => {
     // }
   
 
-    // const updateCurrentExpenses = (currentExpenses, link) => {
+    // const updateProcurementRequest = (procurementRequest, link) => {
     //   const token = sessionStorage.getItem("jwt");
     //   fetch(link,
     //     { 
@@ -127,11 +127,11 @@ const CurrentExpensesTable = ({ setSelectedLink, link }) => {
     //       'Content-Type':  'application/json',
     //       'Authorization' : token
     //     },
-    //     body: JSON.stringify(currentExpenses)
+    //     body: JSON.stringify(procurementRequest)
     //   })
     //   .then(response => {
     //     if (response.ok) {
-    //       fetchCurrentExpenses();
+    //       fetchProcurementRequests();
     //       setEditOpen(true)
     //     }
     //     else {
@@ -142,24 +142,25 @@ const CurrentExpensesTable = ({ setSelectedLink, link }) => {
     // }
     
     const columns = [
-      {field: 'description', headerName: 'Описание', width: 300},
-      {field: 'amount', headerName: 'Сумма расходов (бел. руб.)', width: 300},
-      {field: 'date', headerName: 'Дата списания', width: 230},
-      {field: 'user', headerName: 'Менеджер, ответственный за транзакцию', width: 400},
+      {field: 'description', headerName: 'Описание товара', width: 220},
+      {field: 'amount', headerName: 'Требуемое количество (шт.)', width: 250},
+      {field: 'requestDate', headerName: 'Дата получения заявки', width: 200},
+      {field: 'user', headerName: 'Сотрудник отдела закупок, сформировавший заявку', width: 430},
+      {field: 'vendor', headerName: 'Поставщик', width: 150},
       {
-        field: '_links.currentExpenses.href', 
+        field: '_links.procurementRequest.href', 
         headerName: '', 
         sortable: false,
         filterable: false,
         width: 100,
-        renderCell: row => <EditCurrentExpenses 
+        renderCell: row => <EditProcurementRequest
                               data={row} 
-                              /*updateCurrentExpenses={updateCurrentExpenses}*/ />
+                              /*updateProcurementRequest={updateProcurementRequest}*/ />
       },
       {
         field: '_links.self.href', 
         headerName: '', 
-        width:120,
+        width:100,
         sortable: false,
         filterable: false,
         renderCell: row => 
@@ -181,7 +182,7 @@ const CurrentExpensesTable = ({ setSelectedLink, link }) => {
         <DialogTitle id="alert-dialog-title">{"ВЫ уверены, что хотите удалить запись о расходах?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Запись о текущих расходах будет безвозвратно удалена
+            Запись о заявках на обеспечение будет безвозвратно удалена
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -199,18 +200,19 @@ const CurrentExpensesTable = ({ setSelectedLink, link }) => {
 
     useEffect(() => {
       const updateRows = async () => {
-        const updatedRows = await Promise.all(currentExpenses.map(async currentExpenses => ({
-          id: currentExpenses._links.self.href,
-          description: currentExpenses.description,
-          amount: currentExpenses.amount,
-          date: currentExpenses.date,
-          user: currentExpenses.user
+        const updatedRows = await Promise.all(procurementRequests.map(async procurementRequest => ({
+          id: procurementRequest._links.self.href,
+          description: procurementRequest.description,
+          amount: procurementRequest.amount,
+          requestDate: procurementRequest.requestDate,
+          user: procurementRequest.user,
+          vendor: procurementRequest.vendor
         })));
         setRows(updatedRows);
       };
   
       updateRows();
-    }, [currentExpenses]);
+    }, [procurementRequests]);
     
   return (
     <Box
@@ -224,20 +226,20 @@ const CurrentExpensesTable = ({ setSelectedLink, link }) => {
       component="h4"
       sx={{ textAlign: 'center', mt: 3, mb: 3 }}
     >
-      Текущие расходы
+      Заявки на обеспечение
     </Typography>
       <main className='info_pages_body'>
     <React.Fragment>
-      <AddCurrentExpenses /*addCurrentExpenses={addCurrentExpenses}*/ />
+      <AddProcurementRequest /*addProcurementRequest={addProcurementRequest}*/ />
       <div className="container" style={{ height: 400, width: "100%"}}>
         <StyledDataGrid localeText={{...ruRU.components.MuiDataGrid.defaultProps.localeText, ...customLocaleText}} className="grid_component" 
           columns={columns} 
           rows={rows} 
           disableSelectionOnClick={true}
           getRowId={row => row.id}
-          {...currentExpenses}
+          {...procurementRequests}
           initialState={{
-            ...currentExpenses.initialState,
+            ...procurementRequests.initialState,
             pagination: { paginationModel: { pageSize: 5 } },
           }}
           pageSizeOptions={[5, 10, 25]}
@@ -253,19 +255,19 @@ const CurrentExpensesTable = ({ setSelectedLink, link }) => {
           open={delOpen}
           autoHideDuration={2000}
           onClose={() => setDelOpen(false)}
-          message="Запись о текущих расходах удалена"
+          message="Запись о заявках на обеспечение удалена"
         />
         <Snackbar
           open={addOpen}
           autoHideDuration={2000}
           onClose={() => setAddOpen(false)}
-          message="Запись о текущих расходах успешно добавлена"
+          message="Запись о заявках на обеспечение успешно добавлена"
         />
         <Snackbar
           open={editOpen}
           autoHideDuration={2000}
           onClose={() => setEditOpen(false)}
-          message="Информация о текущих расходах успешно обновлена"
+          message="Информация о заявках на обеспечение успешно обновлена"
         />
       </div>
     </React.Fragment>
@@ -274,4 +276,4 @@ const CurrentExpensesTable = ({ setSelectedLink, link }) => {
   );
 }
 
-export default CurrentExpensesTable;
+export default ProcurementRequestTable;
