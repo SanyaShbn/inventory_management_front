@@ -35,6 +35,7 @@ import ProcurementRequestTable from '../ProcurementRequest/ProcurementRequestTab
 import DeliveredGoodsTable from '../DeliveredGoods/DeliveredGoodsTable';
 import VendorInvoiceTable from '../VendorInvoice/VendorInvoiceTable';
 import PlannedSupplyTable from '../PlannedSupply/PlannedSupplyTable';
+import VendorCreditTable from '../VendorCredit/VendorCreditTable';
 // import { jwtDecode } from 'jwt-decode';
 // import { useValue } from '../../context/ContextProvider'
 // import ReportsButtonsList from "./ReportsButtonsList.js"
@@ -202,8 +203,8 @@ import PlannedSupplyTable from '../PlannedSupply/PlannedSupplyTable';
           {
             title: 'Кредиты по оплате',
             icon: <BookOpenCheck/>,
-            link: 'vendors_credits',
-          //   component: <ReportsButtonsList {...{ setSelectedLink, link: 'reports/*' }}/>,
+            link: 'vendor_credits',
+            component: <VendorCreditTable {...{ setSelectedLink, link: 'vendor_credits' }}/>,
           },
           {
             title: 'Отчеты',

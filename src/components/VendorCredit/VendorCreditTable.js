@@ -12,8 +12,8 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useValue } from '../../context/ContextProvider';
 import axios from 'axios';
-import EditVendorInvoice from './EditVendorInvoice.js';
-import AddVendorInvoice from './AddVendorInvoice.js';
+import EditVendorCredit from './EditVendorCredit.js';
+import AddVendorCredit from './AddVendorCredit.js';
 
 function CustomToolbar() {
   return (
@@ -23,7 +23,7 @@ function CustomToolbar() {
   );
 }
 
-const VendorInvoiceTable = ({ setSelectedLink, link }) => {
+const VendorCreditTable = ({ setSelectedLink, link }) => {
 
   useEffect(() => {
     setSelectedLink(link);
@@ -33,7 +33,7 @@ const VendorInvoiceTable = ({ setSelectedLink, link }) => {
     dispatch,
   } = useValue();
 
-    const [vendorInvoices, setVendorInvoices] = useState([]);
+    const [vendorCredits, setVendorCredits] = useState([]);
     const [delOpen, setDelOpen] = useState(false);
     const [addOpen, setAddOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
@@ -45,20 +45,20 @@ const VendorInvoiceTable = ({ setSelectedLink, link }) => {
     };
   
     // useEffect(() => {
-    //   fetchVendorInvoices();
+    //   fetchVendorCredits();
     // }, []);
   
-    // const fetchVendorInvoices = () => {
+    // const fetchVendorCredits = () => {
     //   const token = sessionStorage.getItem("jwt");
-    //   fetch(SERVER_URL + '/api/vendorInvoices', {
+    //   fetch(SERVER_URL + '/api/vendorCredits', {
     //     headers: { 'Authorization' : token }
     //   })
     //   .then(response => response.json())
     //   .then(data => {
-    //     const sortedVendorInvoices = data._embedded.vendorInvoices.sort((a, b) => a._links.self.href.slice(a._links.self.href.lastIndexOf('/') + 1) 
+    //     const sortedVendorCredits = data._embedded.vendorCredits.sort((a, b) => a._links.self.href.slice(a._links.self.href.lastIndexOf('/') + 1) 
     //     - b._links.self.href.slice(b._links.self.href.lastIndexOf('/') + 1) );
-    //     setVendorInvoices(sortedVendorInvoices)
-    //     sortedVendorInvoices.length !== 0 ? setLoading(true) : setLoading(false)
+    //     setVendorCredits(sortedVendorCredits)
+    //     sortedVendorCredits.length !== 0 ? setLoading(true) : setLoading(false)
     // })
     //   .catch(err => console.error(err));    
     // }
@@ -76,7 +76,7 @@ const VendorInvoiceTable = ({ setSelectedLink, link }) => {
     //   })
     //   .then(response => {
     //     if (response.ok) {
-    //       fetchVendorInvoices();
+    //       fetchVendorCredits();
     //       setDelOpen(true);
     //     }
     //     else {
@@ -88,20 +88,20 @@ const VendorInvoiceTable = ({ setSelectedLink, link }) => {
     //   setDialogOpen(false);
     // };
      
-    // const addVendorInvoice = (vendorInvoice) => {
+    // const addVendorCredit = (venodorCredit) => {
 
     //   const token = sessionStorage.getItem("jwt");
 
-    //   fetch(SERVER_URL + '/api/vendorInvoices',
+    //   fetch(SERVER_URL + '/api/venodorCredits',
     //     { method: 'POST', headers: {
     //       'Content-Type':'application/json',
     //       'Authorization' : token
     //     },
-    //     body: JSON.stringify(vendorInvoice)
+    //     body: JSON.stringify(venodorCredit)
     //   })
     //   .then(response => {
     //     if (response.ok) {
-    //       fetchVendorInvoices();
+    //       fetchVendorCredits();
     //       setAddOpen(true)
     //     }
     //     else {
@@ -110,7 +110,7 @@ const VendorInvoiceTable = ({ setSelectedLink, link }) => {
     //         payload: {
     //           open: true,
     //           severity: 'error',
-    //           message: 'Ошибка! Новую запись о счетах поставщиков не удалось создать',
+    //           message: 'Ошибка! Новую запись о кредитах по оплате не удалось создать',
     //         },});
     //     }
     //   })
@@ -118,7 +118,7 @@ const VendorInvoiceTable = ({ setSelectedLink, link }) => {
     // }
   
 
-    // const updateVendorInvoice = (vendorInvoice, link) => {
+    // const updateVendorCredit = (venodorCredit, link) => {
     //   const token = sessionStorage.getItem("jwt");
     //   fetch(link,
     //     { 
@@ -127,11 +127,11 @@ const VendorInvoiceTable = ({ setSelectedLink, link }) => {
     //       'Content-Type':  'application/json',
     //       'Authorization' : token
     //     },
-    //     body: JSON.stringify(vendorInvoice)
+    //     body: JSON.stringify(venodorCredit)
     //   })
     //   .then(response => {
     //     if (response.ok) {
-    //       fetchVendorInvoices();
+    //       fetchVendorCredits();
     //       setEditOpen(true)
     //     }
     //     else {
@@ -142,18 +142,19 @@ const VendorInvoiceTable = ({ setSelectedLink, link }) => {
     // }
     
     const columns = [
-      {field: 'date', headerName: 'Дата выставления счета', width: 400},
-      {field: 'amount', headerName: 'Сумма (бел. руб.)', width: 400},
-      {field: 'vendor', headerName: 'Поставщик', width: 430},
+      {field: 'amount', headerName: 'Сумма (бел. руб.)', width: 300},
+      {field: 'creditDate', headerName: 'Дата выставления кредита', width: 300},
+      {field: 'dueDate', headerName: 'Дата истечения отсрочки', width: 330},
+      {field: 'vendor', headerName: 'Поставщик, выдавший кредит', width: 300},
       {
-        field: '_links.vendorInvoices.href', 
+        field: '_links.vendorCredits.href', 
         headerName: '', 
         sortable: false,
         filterable: false,
         width: 100,
-        renderCell: row => <EditVendorInvoice 
+        renderCell: row => <EditVendorCredit
                               data={row} 
-                              /*updateVendorInvoice={updateVendorInvoice}*/ />
+                              /*updateVendorCredit={updateVendorCredit}*/ />
       },
       {
         field: '_links.self.href', 
@@ -177,10 +178,10 @@ const VendorInvoiceTable = ({ setSelectedLink, link }) => {
           },
         }}
       >
-        <DialogTitle id="alert-dialog-title">{"ВЫ уверены, что хотите удалить запись о счетах поставщиков?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"ВЫ уверены, что хотите удалить запись о кредитах по оплате?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Запись о счетах поставщиков будет безвозвратно удалена
+            Запись о кредитах по оплате будет безвозвратно удалена
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -198,17 +199,18 @@ const VendorInvoiceTable = ({ setSelectedLink, link }) => {
 
     useEffect(() => {
       const updateRows = async () => {
-        const updatedRows = await Promise.all(vendorInvoices.map(async vendorInvoice => ({
-          id: vendorInvoice._links.self.href,
-          date: vendorInvoice.date,
-          amount: vendorInvoice.amount,
-          vendor: vendorInvoice.vendor,
+        const updatedRows = await Promise.all(vendorCredits.map(async vendorCredit => ({
+          id: vendorCredit._links.self.href,
+          amount: vendorCredit.amount,
+          creditDate: vendorCredit.creditDate,
+          dueDate: vendorCredit.dueDate,
+          vendor: vendorCredit.vendor,
         })));
         setRows(updatedRows);
       };
   
       updateRows();
-    }, [vendorInvoices]);
+    }, [vendorCredits]);
     
   return (
     <Box
@@ -222,20 +224,20 @@ const VendorInvoiceTable = ({ setSelectedLink, link }) => {
       component="h4"
       sx={{ textAlign: 'center', mt: 3, mb: 3 }}
     >
-      Счета поставщиков
+      Кредиты по оплате
     </Typography>
       <main className='info_pages_body'>
     <React.Fragment>
-      <AddVendorInvoice /*addVendorInvoice={addVendorInvoice}*/ />
+      <AddVendorCredit /*addVendorCredit={addVendorCredit}*/ />
       <div className="container" style={{ height: 400, width: "100%"}}>
         <StyledDataGrid localeText={{...ruRU.components.MuiDataGrid.defaultProps.localeText, ...customLocaleText}} className="grid_component" 
           columns={columns} 
           rows={rows} 
           disableSelectionOnClick={true}
           getRowId={row => row.id}
-          {...vendorInvoices}
+          {...vendorCredits}
           initialState={{
-            ...vendorInvoices.initialState,
+            ...vendorCredits.initialState,
             pagination: { paginationModel: { pageSize: 5 } },
           }}
           pageSizeOptions={[5, 10, 25]}
@@ -251,19 +253,19 @@ const VendorInvoiceTable = ({ setSelectedLink, link }) => {
           open={delOpen}
           autoHideDuration={2000}
           onClose={() => setDelOpen(false)}
-          message="Запись о счетах поставщиков удалена"
+          message="Запись о кредитах по оплате удалена"
         />
         <Snackbar
           open={addOpen}
           autoHideDuration={2000}
           onClose={() => setAddOpen(false)}
-          message="Запись о счетах поставщиков успешно добавлена"
+          message="Запись о кредитах по оплате успешно добавлена"
         />
         <Snackbar
           open={editOpen}
           autoHideDuration={2000}
           onClose={() => setEditOpen(false)}
-          message="Информация о счетах поставщиков успешно обновлена"
+          message="Информация о кредитах по оплате успешно обновлена"
         />
       </div>
     </React.Fragment>
@@ -272,4 +274,4 @@ const VendorInvoiceTable = ({ setSelectedLink, link }) => {
   );
 }
 
-export default VendorInvoiceTable;
+export default VendorCreditTable;
