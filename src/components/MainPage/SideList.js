@@ -32,6 +32,7 @@ import { blue } from '@mui/material/colors';
 import VendorTable from '../Vendor/VendorTable';
 import CurrentExpensesTable from '../CurrentExpenses/CurrentExpensesTable';
 import ProcurementRequestTable from '../ProcurementRequest/ProcurementRequestTable';
+import DeliveredGoodsTable from '../DeliveredGoods/DeliveredGoodsTable';
 // import { jwtDecode } from 'jwt-decode';
 // import { useValue } from '../../context/ContextProvider'
 // import ReportsButtonsList from "./ReportsButtonsList.js"
@@ -166,13 +167,14 @@ import ProcurementRequestTable from '../ProcurementRequest/ProcurementRequestTab
           {
             title: 'Заявки на обеспечение',
             icon: <Dock/>,
-            link: 'procurementRequests',
-            component: <ProcurementRequestTable {...{ setSelectedLink, link: 'procurementRequests' }}/>,
+            link: 'procurement_requests',
+            component: <ProcurementRequestTable {...{ setSelectedLink, link: 'procurement_requests' }}/>,
           },
           {
             title: 'Доставленные товары',
             icon: <ClipboardCheck/>,
-            link: 'recieved_goods',
+            link: 'delivered_goods',
+            component: <DeliveredGoodsTable {...{ setSelectedLink, link: 'delivered_goods' }}/>,
             // component:
             // <div>
             // <div>
