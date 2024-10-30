@@ -33,6 +33,7 @@ import VendorTable from '../Vendor/VendorTable';
 import CurrentExpensesTable from '../CurrentExpenses/CurrentExpensesTable';
 import ProcurementRequestTable from '../ProcurementRequest/ProcurementRequestTable';
 import DeliveredGoodsTable from '../DeliveredGoods/DeliveredGoodsTable';
+import VendorInvoiceTable from '../VendorInvoice/VendorInvoiceTable';
 // import { jwtDecode } from 'jwt-decode';
 // import { useValue } from '../../context/ContextProvider'
 // import ReportsButtonsList from "./ReportsButtonsList.js"
@@ -188,8 +189,8 @@ import DeliveredGoodsTable from '../DeliveredGoods/DeliveredGoodsTable';
           {
             title: 'Счета поставщиков',
             icon: <Receipt/>,
-            link: 'bills',
-          //   component: <SportComplexMembershipTable {...{ setSelectedLink, link: 'memberships' }}/>,
+            link: 'vendor_invoices',
+            component: <VendorInvoiceTable {...{ setSelectedLink, link: 'vendor_invoices' }}/>,
           },
           {
             title: 'Планируемые поставки',
