@@ -38,7 +38,7 @@ import PlannedSupplyTable from '../PlannedSupply/PlannedSupplyTable';
 import VendorCreditTable from '../VendorCredit/VendorCreditTable';
 // import { jwtDecode } from 'jwt-decode';
 // import { useValue } from '../../context/ContextProvider'
-// import ReportsButtonsList from "./ReportsButtonsList.js"
+import ReportsButtonsList from "./ReportsButtonsList.js"
   
   const drawerWidth = 280;
   
@@ -210,7 +210,7 @@ import VendorCreditTable from '../VendorCredit/VendorCreditTable';
             title: 'Отчеты',
             icon: <FileChartColumnIncreasing/>,
             link: 'reports/*',
-          //   component: <ReportsButtonsList {...{ setSelectedLink, link: 'reports/*' }}/>,
+            component: <ReportsButtonsList {...{ setSelectedLink, link: 'reports/*' }}/>,
           },
         );
     //   }
