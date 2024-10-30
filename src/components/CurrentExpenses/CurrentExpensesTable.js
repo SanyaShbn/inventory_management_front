@@ -12,8 +12,8 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useValue } from '../../context/ContextProvider';
 import axios from 'axios';
-import EditVendor from "./EditVendor.js";
-import AddVendor from "./AddVendor.js";
+import EditCurrentExpenses from "./EditCurrentExpenses.js";
+import AddCurrentExpenses from "./AddCurrentExpenses.js";
 
 function CustomToolbar() {
   return (
@@ -23,7 +23,7 @@ function CustomToolbar() {
   );
 }
 
-const VendorTable = ({ setSelectedLink, link }) => {
+const CurrentExpensesTable = ({ setSelectedLink, link }) => {
 
   useEffect(() => {
     setSelectedLink(link);
@@ -33,7 +33,7 @@ const VendorTable = ({ setSelectedLink, link }) => {
     dispatch,
   } = useValue();
 
-    const [vendors, setVendors] = useState([]);
+    const [currentExpenses, setCurrentExpenses] = useState([]);
     const [delOpen, setDelOpen] = useState(false);
     const [addOpen, setAddOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
@@ -45,20 +45,20 @@ const VendorTable = ({ setSelectedLink, link }) => {
     };
   
     // useEffect(() => {
-    //   fetchVendors();
+    //   fetchCurrentExpenses();
     // }, []);
   
-    // const fetchVendors = () => {
+    // const fetchCurrentExpenses = () => {
     //   const token = sessionStorage.getItem("jwt");
-    //   fetch(SERVER_URL + '/api/vendors', {
+    //   fetch(SERVER_URL + '/api/currentExpenses', {
     //     headers: { 'Authorization' : token }
     //   })
     //   .then(response => response.json())
     //   .then(data => {
-    //     const sortedVendors = data._embedded.vendors.sort((a, b) => a._links.self.href.slice(a._links.self.href.lastIndexOf('/') + 1) 
+    //     const sortedCurrentExpenses = data._embedded.currentExpenses.sort((a, b) => a._links.self.href.slice(a._links.self.href.lastIndexOf('/') + 1) 
     //     - b._links.self.href.slice(b._links.self.href.lastIndexOf('/') + 1) );
-    //     setVendors(sortedVendors)
-    //     sortedVendors.length !== 0 ? setLoading(true) : setLoading(false)
+    //     setCurrentExpenses(sortedCurrentExpenses)
+    //     sortedCurrentExpenses.length !== 0 ? setLoading(true) : setLoading(false)
     // })
     //   .catch(err => console.error(err));    
     // }
@@ -76,7 +76,7 @@ const VendorTable = ({ setSelectedLink, link }) => {
     //   })
     //   .then(response => {
     //     if (response.ok) {
-    //       fetchVendors();
+    //       fetchCurrentExpenses();
     //       setDelOpen(true);
     //     }
     //     else {
@@ -88,20 +88,20 @@ const VendorTable = ({ setSelectedLink, link }) => {
     //   setDialogOpen(false);
     // };
      
-    // const addVendor = (vendor) => {
+    // const addCurrentExpenses = (currentExpenses) => {
 
     //   const token = sessionStorage.getItem("jwt");
 
-    //   fetch(SERVER_URL + '/api/vendors',
+    //   fetch(SERVER_URL + '/api/currentExpenses',
     //     { method: 'POST', headers: {
     //       'Content-Type':'application/json',
     //       'Authorization' : token
     //     },
-    //     body: JSON.stringify(vendor)
+    //     body: JSON.stringify(currentExpenses)
     //   })
     //   .then(response => {
     //     if (response.ok) {
-    //       fetchVendors();
+    //       fetchCurrentExpenses();
     //       setAddOpen(true)
     //     }
     //     else {
@@ -110,7 +110,7 @@ const VendorTable = ({ setSelectedLink, link }) => {
     //         payload: {
     //           open: true,
     //           severity: 'error',
-    //           message: 'Ошибка! Новую запись о поставщике не удалось создать',
+    //           message: 'Ошибка! Новую запись о текущих расходах не удалось создать',
     //         },});
     //     }
     //   })
@@ -118,7 +118,7 @@ const VendorTable = ({ setSelectedLink, link }) => {
     // }
   
 
-    // const updateVendor = (vendor, link) => {
+    // const updateCurrentExpenses = (currentExpenses, link) => {
     //   const token = sessionStorage.getItem("jwt");
     //   fetch(link,
     //     { 
@@ -127,11 +127,11 @@ const VendorTable = ({ setSelectedLink, link }) => {
     //       'Content-Type':  'application/json',
     //       'Authorization' : token
     //     },
-    //     body: JSON.stringify(vendor)
+    //     body: JSON.stringify(currentExpenses)
     //   })
     //   .then(response => {
     //     if (response.ok) {
-    //       fetchVendors();
+    //       fetchCurrentExpenses();
     //       setEditOpen(true)
     //     }
     //     else {
@@ -142,18 +142,19 @@ const VendorTable = ({ setSelectedLink, link }) => {
     // }
     
     const columns = [
-      {field: 'name', headerName: 'Наименование', width: 400},
-      {field: 'contactDetails', headerName: 'Контактная информация', width: 400},
-      {field: 'supplyOrders', headerName: 'Договоры на поставку', width: 430},
+      {field: 'description', headerName: 'Описание', width: 400},
+      {field: 'amount', headerName: 'Сумма расходов (бел. руб.)', width: 300},
+      {field: 'date', headerName: 'Дата списания', width: 230},
+      {field: 'user', headerName: 'Менеджер, ответственный за транзакцию', width: 300},
       {
-        field: '_links.vendor.href', 
+        field: '_links.currentExpenses.href', 
         headerName: '', 
         sortable: false,
         filterable: false,
         width: 100,
-        renderCell: row => <EditVendor 
+        renderCell: row => <EditCurrentExpenses 
                               data={row} 
-                              /*updateVendor={updateVendor}*/ />
+                              /*updateCurrentExpenses={updateCurrentExpenses}*/ />
       },
       {
         field: '_links.self.href', 
@@ -177,10 +178,10 @@ const VendorTable = ({ setSelectedLink, link }) => {
           },
         }}
       >
-        <DialogTitle id="alert-dialog-title">{"ВЫ уверены, что хотите удалить запись о поставщике?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"ВЫ уверены, что хотите удалить запись о расходах?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Запись о поставщике будет безвозвратно удалена
+            Запись о текущих расходах будет безвозвратно удалена
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -196,19 +197,20 @@ const VendorTable = ({ setSelectedLink, link }) => {
       }
     ];
 
-    // useEffect(() => {
-    //   const updateRows = async () => {
-    //     const updatedRows = await Promise.all(vendors.map(async vendor => ({
-    //       id: vendor._links.self.href,
-    //       name: vendor.name,
-    //       contactDetails: vendor.contactDetails,
-    //       supplyOrders: vendor.supplyOrders,
-    //     })));
-    //     setRows(updatedRows);
-    //   };
+    useEffect(() => {
+      const updateRows = async () => {
+        const updatedRows = await Promise.all(currentExpenses.map(async currentExpenses => ({
+          id: currentExpenses._links.self.href,
+          description: currentExpenses.description,
+          amount: currentExpenses.amount,
+          date: currentExpenses.date,
+          user: currentExpenses.user
+        })));
+        setRows(updatedRows);
+      };
   
-    //   updateRows();
-    // }, [vendors]);
+      updateRows();
+    }, [currentExpenses]);
     
   return (
     <Box
@@ -222,20 +224,20 @@ const VendorTable = ({ setSelectedLink, link }) => {
       component="h4"
       sx={{ textAlign: 'center', mt: 3, mb: 3 }}
     >
-      Поставщики
+      Текущие расходы
     </Typography>
       <main className='info_pages_body'>
     <React.Fragment>
-      <AddVendor /*addVendor={addVendor}*/ />
+      <AddCurrentExpenses /*addCurrentExpenses={addCurrentExpenses}*/ />
       <div className="container" style={{ height: 400, width: "100%"}}>
         <StyledDataGrid localeText={{...ruRU.components.MuiDataGrid.defaultProps.localeText, ...customLocaleText}} className="grid_component" 
           columns={columns} 
           rows={rows} 
           disableSelectionOnClick={true}
           getRowId={row => row.id}
-          {...vendors}
+          {...currentExpenses}
           initialState={{
-            ...vendors.initialState,
+            ...currentExpenses.initialState,
             pagination: { paginationModel: { pageSize: 5 } },
           }}
           pageSizeOptions={[5, 10, 25]}
@@ -251,19 +253,19 @@ const VendorTable = ({ setSelectedLink, link }) => {
           open={delOpen}
           autoHideDuration={2000}
           onClose={() => setDelOpen(false)}
-          message="Запись о поставщике удалена"
+          message="Запись о текущих расходах удалена"
         />
         <Snackbar
           open={addOpen}
           autoHideDuration={2000}
           onClose={() => setAddOpen(false)}
-          message="Запись о новом поставщике успешно добавлена"
+          message="Запись о текущих расходах успешно добавлена"
         />
         <Snackbar
           open={editOpen}
           autoHideDuration={2000}
           onClose={() => setEditOpen(false)}
-          message="Информация о поставщике успешно обновлена"
+          message="Информация о текущих расходах успешно обновлена"
         />
       </div>
     </React.Fragment>
@@ -272,4 +274,4 @@ const VendorTable = ({ setSelectedLink, link }) => {
   );
 }
 
-export default VendorTable;
+export default CurrentExpensesTable;
