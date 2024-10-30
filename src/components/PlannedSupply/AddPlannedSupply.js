@@ -14,10 +14,10 @@ import FormControl from '@mui/material/FormControl';
 import { SERVER_URL } from '../../constants.js';
 import { NumberInput } from '../../constants';
 
-function AddCurrentExpenses(props){
+function AddPlannedSupply(props){
   const [open, setOpen] = useState(false);
-  const [сurrentExpenses, setCurrentExpenses] = useState({
-    description: '', amount: '', date: '', user: ''
+  const [plannedSupply, setPlannedSupply] = useState({
+    description: '', quantity: '', plannedDate: '', vendor: ''
   });
 
   const {
@@ -28,19 +28,19 @@ function AddCurrentExpenses(props){
     setOpen(true);
   };
 
-  const handleCurrentExpensesChange = (event) => {
-    setCurrentExpenses({...сurrentExpenses, [event.target.name]: event.target.value})
+  const handlePlannedSupplyChange = (event) => {
+    setPlannedSupply({...plannedSupply, [event.target.name]: event.target.value})
   };
 
   const handleClose = () => {
     setOpen(false)
-    setCurrentExpenses({
-        description: '', amount: '', date: '', user:''
+    setPlannedSupply({
+        description: '', quantity: '', plannedDate: '', vendor: ''
     })
   };
 
   const handleSave = () => {
-    props.AddCurrentExpenses(сurrentExpenses);
+    props.addPlannedSupply(plannedSupply);
     handleClose();
   }
 
@@ -50,18 +50,18 @@ function AddCurrentExpenses(props){
       Добавить информацию
     </Button>
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle className='dialog'>Новая информация о расходах</DialogTitle>
+      <DialogTitle className='dialog'>Новая информация о планируемых поставках</DialogTitle>
       <DialogContent className='dialog'>
         <Stack spacing={2} mt={1}>
         <TextField label="Описание" name="description" autoFocus
-            variant="standard" value={сurrentExpenses.description} required
-            onChange={handleCurrentExpensesChange}/>
-        <TextField label="Сумма расходов (бел. руб.)" name="amount" autoFocus
-            variant="standard" value={сurrentExpenses.amount} required
-            onChange={handleCurrentExpensesChange}/>
-        <TextField type="date" label="Дата списания" name="date" autoFocus
-            variant="standard" value={сurrentExpenses.date} required
-            onChange={handleCurrentExpensesChange} InputProps={{
+            variant="standard" value={plannedSupply.description} required
+            onChange={handlePlannedSupplyChange}/>
+        <TextField label="Количество товаров (шт.)" name="quantity" autoFocus
+            variant="standard" value={plannedSupply.quantity} required
+            onChange={handlePlannedSupplyChange}/>
+        <TextField type="date" label="Планируемая дата поставки" name="plannedDate" autoFocus
+            variant="standard" value={plannedSupply.plannedDate} required
+            onChange={handlePlannedSupplyChange} InputProps={{
                 inputProps: {
                   inputMode: 'numeric',
                 },
@@ -69,9 +69,9 @@ function AddCurrentExpenses(props){
                   <InputAdornment position="start"> </InputAdornment>
                 ),
             }}/>
-        <TextField label="Менеджер, ответственный за транзакцию" name="user" autoFocus
-            variant="standard" value={сurrentExpenses.user} required
-            onChange={handleCurrentExpensesChange} inputProps={{ style: { minWidth: '400px' } }}/>
+        <TextField label="Поставщик" name="vendor" autoFocus
+            variant="standard" value={plannedSupply.vendor} required
+            onChange={handlePlannedSupplyChange} inputProps={{ style: { minWidth: '300px' } }}/>
         </Stack>
       </DialogContent>
       <DialogActions>
@@ -83,4 +83,4 @@ function AddCurrentExpenses(props){
   );
 }
 
-export default AddCurrentExpenses;
+export default AddPlannedSupply;

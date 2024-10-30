@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
 import EditIcon from '@mui/icons-material/Edit';
 import { NumberInput } from '../../constants';
 import { useValue } from '../../context/ContextProvider';
@@ -64,9 +65,16 @@ function EditProcurementRequest(props) {
         <TextField label="Требуемое количество (шт.)" name="amount" autoFocus
             variant="standard" value={procurementRequest.amount} required
             onChange={handleProcurementRequestChange}/>
-        <TextField label="Дата получения заявки" name="requestDate" autoFocus
+        <TextField type="date" label="Дата получения заявки" name="requestDate" autoFocus
             variant="standard" value={procurementRequest.requestDate} required
-            onChange={handleProcurementRequestChange}/>
+            onChange={handleProcurementRequestChange} InputProps={{
+                inputProps: {
+                  inputMode: 'numeric',
+                },
+                startAdornment: (
+                  <InputAdornment position="start"> </InputAdornment>
+                ),
+            }}/>
         <TextField label="Сотрудник отдела закупок, сформировавший заявку" name="user" autoFocus
             variant="standard" value={procurementRequest.user} required
             onChange={handleProcurementRequestChange} inputProps={{ style: { minWidth: '400px' } }}/>

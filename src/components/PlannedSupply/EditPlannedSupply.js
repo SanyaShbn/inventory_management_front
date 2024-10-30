@@ -6,34 +6,35 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
+import InputAdornment from '@mui/material/InputAdornment';
 import { NumberInput } from '../../constants';
 import { useValue } from '../../context/ContextProvider';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import FormControl from '@mui/material/FormControl';
 
-function EditVendorInvoice(props) {
+function EditPlannedSupply(props) {
 
   const [open, setOpen] = useState(false);
-  const [vendorInvoice, setVendorInvoice] = useState({
-    date: '', amount: '', vendor: ''
+  const [plannedSupply, setPlannedSupply] = useState({
+    description: '', quantity: '', plannedDate: '', vendor: ''
   });
 
   const {
     dispatch,
   } = useValue();
 
-  const handleVendorInvoiceChange = (event) => {
-    setVendorInvoice({...vendorInvoice, [event.target.name]: event.target.value})
+  const handlePlannedSupplyChange = (event) => {
+    setPlannedSupply({...plannedSupply, [event.target.name]: event.target.value})
   };
 
   const handleClickOpen = () => {  
-    setVendorInvoice({
-        date: props.data.row.date,
-        amount: props.data.row.amount, 
+    setPlannedSupply({
+        description: props.data.row.description,
+        quantity: props.data.row.quantity, 
+        plannedDate: props.data.row.plannedDate, 
         vendor: props.data.row.vendor
        })
     setOpen(true);
@@ -44,7 +45,7 @@ function EditVendorInvoice(props) {
   };
 
   const handleSave = () => {
-    props.updateVendorInvoice(vendorInvoice, props.data.id)
+    props.updatePlannedSupply(plannedSupply, props.data.id)
     handleClose();
   }
 
@@ -54,12 +55,18 @@ function EditVendorInvoice(props) {
         <EditIcon color="primary" />
       </IconButton>
       <Dialog open={open} onClose={handleClose}>
-          <DialogTitle className='dialog'>Обновление информации о счетах поставщиков</DialogTitle>
+          <DialogTitle className='dialog'>Обновление информации о планируемых поставках</DialogTitle>
         <DialogContent className='dialog'>
         <Stack spacing={2} mt={1}>
-        <TextField type="date" label="Дата выставления счета" name="date" autoFocus
-            variant="standard" value={vendorInvoice.date} required
-            onChange={handleVendorInvoiceChange} InputProps={{
+        <TextField label="Описание" name="description" autoFocus
+            variant="standard" value={plannedSupply.description} required
+            onChange={handlePlannedSupplyChange}/>
+        <TextField label="Количество товаров (шт.)" name="quantity" autoFocus
+            variant="standard" value={plannedSupply.quantity} required
+            onChange={handlePlannedSupplyChange}/>
+        <TextField type="date" label="Планируемая дата поставки" name="plannedDate" autoFocus
+            variant="standard" value={plannedSupply.plannedDate} required
+            onChange={handlePlannedSupplyChange} InputProps={{
                 inputProps: {
                   inputMode: 'numeric',
                 },
@@ -67,12 +74,9 @@ function EditVendorInvoice(props) {
                   <InputAdornment position="start"> </InputAdornment>
                 ),
             }}/>
-        <TextField label="Сумма (бел. руб.)" name="amount" autoFocus
-            variant="standard" value={vendorInvoice.amount} required
-            onChange={handleVendorInvoiceChange}/>
         <TextField label="Поставщик" name="vendor" autoFocus
-            variant="standard" value={vendorInvoice.vendor} required
-            onChange={handleVendorInvoiceChange} inputProps={{ style: { minWidth: '300px' } }}/>
+            variant="standard" value={plannedSupply.vendor} required
+            onChange={handlePlannedSupplyChange} inputProps={{ style: { minWidth: '300px' } }}/>
         </Stack>
       </DialogContent>
           <DialogActions>
@@ -84,4 +88,4 @@ function EditVendorInvoice(props) {
   );  
 }
 
-export default EditVendorInvoice;
+export default EditPlannedSupply;

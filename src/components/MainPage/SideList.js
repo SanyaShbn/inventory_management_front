@@ -34,6 +34,7 @@ import CurrentExpensesTable from '../CurrentExpenses/CurrentExpensesTable';
 import ProcurementRequestTable from '../ProcurementRequest/ProcurementRequestTable';
 import DeliveredGoodsTable from '../DeliveredGoods/DeliveredGoodsTable';
 import VendorInvoiceTable from '../VendorInvoice/VendorInvoiceTable';
+import PlannedSupplyTable from '../PlannedSupply/PlannedSupplyTable';
 // import { jwtDecode } from 'jwt-decode';
 // import { useValue } from '../../context/ContextProvider'
 // import ReportsButtonsList from "./ReportsButtonsList.js"
@@ -195,8 +196,8 @@ import VendorInvoiceTable from '../VendorInvoice/VendorInvoiceTable';
           {
             title: 'Планируемые поставки',
             icon: <Handshake/>,
-            link: 'future_supplies',
-          //   component: <ReceptionButtonsList {...{ setSelectedLink, link: 'reception/*' }}/>,
+            link: 'planned_supplies',
+            component: <PlannedSupplyTable {...{ setSelectedLink, link: 'planned_supplies' }}/>,
           },
           {
             title: 'Кредиты по оплате',

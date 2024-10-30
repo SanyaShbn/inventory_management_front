@@ -6,6 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
@@ -64,9 +65,16 @@ function EditDeliveredGoods(props) {
         <TextField label="Количество (шт.)" name="quantity" autoFocus
             variant="standard" value={deliveredGoods.quantity} required
             onChange={handleDeliveredGoodsChange}/>
-        <TextField label="Дата приемки товара" name="deliveryDate" autoFocus
+        <TextField type="date" label="Дата приемки товара" name="deliveryDate" autoFocus
             variant="standard" value={deliveredGoods.deliveryDate} required
-            onChange={handleDeliveredGoodsChange}/>
+            onChange={handleDeliveredGoodsChange} InputProps={{
+                inputProps: {
+                  inputMode: 'numeric',
+                },
+                startAdornment: (
+                  <InputAdornment position="start"> </InputAdornment>
+                ),
+            }}/>
         <TextField label="Поставщик" name="vendor" autoFocus
             variant="standard" value={deliveredGoods.vendor} required
             onChange={handleDeliveredGoodsChange}/>

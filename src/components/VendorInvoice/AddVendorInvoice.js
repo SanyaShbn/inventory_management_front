@@ -5,6 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import '../../CSS/table.css';
 import { useValue } from '../../context/ContextProvider';
@@ -52,9 +53,16 @@ function AddVendorInvoice(props){
       <DialogTitle className='dialog'>Новая информация о счетах поставщиков</DialogTitle>
       <DialogContent className='dialog'>
         <Stack spacing={2} mt={1}>
-        <TextField label="Дата выставления счета" name="date" autoFocus
+        <TextField type="date" label="Дата выставления счета" name="date" autoFocus
             variant="standard" value={vendorInvoice.date} required
-            onChange={handleVendorInvoiceChange}/>
+            onChange={handleVendorInvoiceChange} InputProps={{
+                inputProps: {
+                  inputMode: 'numeric',
+                },
+                startAdornment: (
+                  <InputAdornment position="start"> </InputAdornment>
+                ),
+            }}/>
         <TextField label="Сумма (бел. руб.)" name="amount" autoFocus
             variant="standard" value={vendorInvoice.amount} required
             onChange={handleVendorInvoiceChange}/>

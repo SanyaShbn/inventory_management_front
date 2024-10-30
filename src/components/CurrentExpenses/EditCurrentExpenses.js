@@ -6,6 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
@@ -63,9 +64,16 @@ function EditCurrentExpenses(props) {
           <TextField label="Сумма расходов (бел. руб.)" name="amount" autoFocus
             variant="standard" value={сurrentExpenses.amount} required
             onChange={handleCurrentExpensesChange}/>
-          <TextField label="Дата списания" name="date" autoFocus
+          <TextField type="date" label="Дата списания" name="date" autoFocus
             variant="standard" value={сurrentExpenses.date} required
-            onChange={handleCurrentExpensesChange}/>
+            onChange={handleCurrentExpensesChange} InputProps={{
+                inputProps: {
+                  inputMode: 'numeric',
+                },
+                startAdornment: (
+                  <InputAdornment position="start"> </InputAdornment>
+                ),
+            }}/>
           <TextField fullWidth label="Менеджер, ответственный за транзакцию" name="user" autoFocus
             variant="standard" value={сurrentExpenses.user} required
             onChange={handleCurrentExpensesChange} inputProps={{ style: { minWidth: '400px' } }}/>
