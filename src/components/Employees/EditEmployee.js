@@ -167,7 +167,7 @@ function EditEmployee(props) {
     }
     employee.status = "disabled"
     employee.phoneNumber = phone
-    // props.updateEmployee(employee, props.data.id);
+    props.updateEmployee(employee, props.data.id);
     handleClose();
     }
   }

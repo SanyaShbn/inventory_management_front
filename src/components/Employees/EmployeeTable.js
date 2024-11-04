@@ -43,52 +43,52 @@ const EmployeeTable = ({ setSelectedLink, link }) => {
       noRowsLabel: loading ? 'Загрузка...' : 'Нет данных',
     };
 
-    // useEffect(() => {
-    //   fetchUsers();
-    // }, []);
+    useEffect(() => {
+      fetchUsers();
+    }, []);
   
-    // const fetchUsers = () => {
-    //   const token = sessionStorage.getItem("jwt");
-    //   fetch(SERVER_URL + '/api/users', {
-    //     headers: { 'Authorization' : token }
-    //   })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     const nonAdminUsers = data._embedded.users.filter(user => user.role !== "ADMIN");
-    //     const sortedNonAdminUsers = nonAdminUsers.sort((a, b) => a._links.self.href.slice(a._links.self.href.lastIndexOf('/') + 1) 
-    //     - b._links.self.href.slice(b._links.self.href.lastIndexOf('/') + 1) );
-    //     setUsers(sortedNonAdminUsers);
-    //     sortedNonAdminUsers.length !== 0 ? setLoading(true) : setLoading(false)
-    //   }
-    //   )
-    //   .catch(err => console.error(err));    
-    // }
+    const fetchUsers = () => {
+      // const token = sessionStorage.getItem("jwt");
+      fetch(SERVER_URL + '/api/users', {
+        // headers: { 'Authorization' : token }
+      })
+      .then(response => response.json())
+      .then(data => {
+        const nonAdminUsers = data._embedded.users.filter(user => user.role !== "ADMIN");
+        const sortedNonAdminUsers = nonAdminUsers.sort((a, b) => a._links.self.href.slice(a._links.self.href.lastIndexOf('/') + 1) 
+        - b._links.self.href.slice(b._links.self.href.lastIndexOf('/') + 1) );
+        setUsers(sortedNonAdminUsers);
+        sortedNonAdminUsers.length !== 0 ? setLoading(true) : setLoading(false)
+      }
+      )
+      .catch(err => console.error(err));    
+    }
 
     const onDelClick = (id) => {
       setDialogOpen(true);
       setRowIdToDelete(id)
     }
 
-    // const handleConfirmDelete  = (url) => {
+    const handleConfirmDelete  = (url) => {
 
-    //     const token = sessionStorage.getItem("jwt");
+        // const token = sessionStorage.getItem("jwt");
 
-    //     fetch(url, {
-    //       method: 'DELETE',
-    //       headers: { 'Authorization' : token }
-    //       })
-    //     .then(response => {
-    //       if (response.ok) {
-    //         fetchUsers();
-    //         setDelOpen(true);
-    //         setDialogOpen(false)
-    //       }
-    //       else {
-    //         alert('Что-то пошло не так!');
-    //       }
-    //     })
-    //     .catch(err => console.error(err))
-    // }
+        fetch(url, {
+          method: 'DELETE',
+          // headers: { 'Authorization' : token }
+          })
+        .then(response => {
+          if (response.ok) {
+            fetchUsers();
+            setDelOpen(true);
+            setDialogOpen(false)
+          }
+          else {
+            alert('Что-то пошло не так!');
+          }
+        })
+        .catch(err => console.error(err))
+    }
 
 
 //     const handleConfirmDeleteCoachOrCleaner = (id, role) => {
@@ -128,70 +128,68 @@ const EmployeeTable = ({ setSelectedLink, link }) => {
 //         .catch(err => console.error(err))
 //   }
 
-    // const addEmployee = (user) => {
+    const addEmployee = (user) => {
 
-    //   const token = sessionStorage.getItem("jwt");
+      // const token = sessionStorage.getItem("jwt");
 
-    //   fetch(SERVER_URL + '/api/users',
-    //     { method: 'POST', headers: {
-    //       'Content-Type':'application/json',
-    //       'Authorization' : token
-    //     },
-    //     body: JSON.stringify(user)
-    //   })
-    //   .then(response => {
-    //     if (response.ok) {
-    //       fetchUsers();
-    //       setAddOpen(true)
-    //     }
-    //     else {
-    //       dispatch({
-    //         type: 'UPDATE_ALERT',
-    //         payload: {
-    //           open: true,
-    //           severity: 'error',
-    //           message: 'Ошибка! Новую запись о сотруднике не удалось создать. Возможно, введенные вами значения адреса электронной '
-    //           + 'почты или номера телефона уже используются другими сотрудниками (или клиентами)',
-    //         },});
-    //     }
-    //   })
-    //   .catch(err => console.error(err))
-    // }
+      fetch(SERVER_URL + '/api/users',
+        { method: 'POST', headers: {
+          'Content-Type':'application/json',
+          // 'Authorization' : token
+        },
+        body: JSON.stringify(user)
+      })
+      .then(response => {
+        if (response.ok) {
+          fetchUsers();
+          setAddOpen(true)
+        }
+        else {
+          dispatch({
+            type: 'UPDATE_ALERT',
+            payload: {
+              open: true,
+              severity: 'error',
+              message: 'Ошибка! Новую запись о сотруднике не удалось создать. Возможно, введенные вами значения адреса электронной '
+              + 'почты или номера телефона уже используются другими сотрудниками',
+            },});
+        }
+      })
+      .catch(err => console.error(err))
+    }
   
 
-    // const updateEmployee = (user, link) => {
-    //   let url
-    //   user.role === 'MANAGER' ? url = link : 
-    //   url = SERVER_URL + '/api/update_coach_or_cleaner?employee_id=' + link.slice(link.lastIndexOf('/') + 1)
-    //   const token = sessionStorage.getItem("jwt");
+    const updateEmployee = (user, link) => {
 
-    //   fetch(url,
-    //     { 
-    //       method: 'PUT', 
-    //       headers: {
-    //       'Content-Type':  'application/json',
-    //       'Authorization' : token
-    //     },
-    //     body: JSON.stringify(user)
-    //   })
-    //   .then(response => {
-    //     if (response.ok) {
-    //       fetchUsers();
-    //       setEditOpen(true)
-    //     }
-    //     else {
-    //       dispatch({
-    //         type: 'UPDATE_ALERT',
-    //         payload: {
-    //           open: true,
-    //           severity: 'error',
-    //           message: 'Ошибка! Не удалось обновить данные о сотруднике. Возможно, введенные вами значения адреса электронной '
-    //           + 'почты или номера телефона уже используются другими сотрудниками (или клиентами)',
-    //         },});
-    //     }
-    //   })
-    //   .catch(err => console.error(err))
-    // }
+      // const token = sessionStorage.getItem("jwt");
+
+      fetch(link,
+        { 
+          method: 'PUT', 
+          headers: {
+          'Content-Type':  'application/json',
+          // 'Authorization' : token
+        },
+        body: JSON.stringify(user)
+      })
+      .then(response => {
+        if (response.ok) {
+          fetchUsers();
+          setEditOpen(true)
+        }
+        else {
+          dispatch({
+            type: 'UPDATE_ALERT',
+            payload: {
+              open: true,
+              severity: 'error',
+              message: 'Ошибка! Не удалось обновить данные о сотруднике. Возможно, введенные вами значения адреса электронной '
+              + 'почты или номера телефона уже используются другими сотрудниками',
+            },});
+        }
+      })
+      .catch(err => console.error(err))
+    }
     
     const columns = [
       {field: 'firstName', headerName: 'Имя', width: 100},
@@ -209,8 +207,7 @@ const EmployeeTable = ({ setSelectedLink, link }) => {
         width: 50,
         renderCell: row => <EditEmployee 
                               data={row} 
-                         //   updateEmployee={updateEmployee} />
-                              />
+                           updateEmployee={updateEmployee} />
       },
       {
         field: '_links.self.href', 
@@ -244,13 +241,9 @@ const EmployeeTable = ({ setSelectedLink, link }) => {
           <Button onClick={() => setDialogOpen(false)} color="primary">
             Отменить
           </Button>
-          <Button>
+          <Button onClick={() => handleConfirmDelete(rowIdToDelete)} color="primary" autoFocus>
             Удалить
           </Button>
-          {/* <Button onClick={() => { row.row.role === "MANAGER"  ? handleConfirmDelete(rowIdToDelete):
-            handleConfirmDeleteCoachOrCleaner(rowIdToDelete, row.row.role)}} color="primary" autoFocus>
-            Удалить
-          </Button>  - вместо верхнего <Button>Удалить</Button>*/}
         </DialogActions>
       </Dialog>
       </div>
@@ -282,7 +275,7 @@ const EmployeeTable = ({ setSelectedLink, link }) => {
     </Typography>
     <main className='info_pages_body'>
     <React.Fragment>
-      <AddEmployee /*addEmployee={addEmployee}*/ />
+      <AddEmployee addEmployee={addEmployee} />
       <div className="container" style={{ height: 400, width: "100%"}}>
         <StyledDataGrid localeText={{...ruRU.components.MuiDataGrid.defaultProps.localeText, ...customLocaleText}} className="grid_component" 
           columns={columns} 

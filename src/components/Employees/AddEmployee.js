@@ -14,7 +14,7 @@ import {
   usePhoneInput
 } from 'react-international-phone';
 import { PhoneNumberUtil } from 'google-libphonenumber';
-import { useValue } from '../../context/ContextProvider.js';
+import { useValue } from '../../context/ContextProvider';
 
 function AddEmployee(props){
   const [open, setOpen] = useState(false);
@@ -146,7 +146,7 @@ function AddEmployee(props){
     }
     employee.status = "disabled"
     employee.phoneNumber = phone
-    // props.addEmployee(employee);
+    props.addEmployee(employee);
     handleClose();
     }
   }
